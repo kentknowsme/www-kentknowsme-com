@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kent Schaeffer - Technical Writer and Web Developer</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=merriweather:400,700&amp;display=swap"
-          rel="stylesheet" type="text/css">
+    <meta name="description" content="Kent Schaeffer - Technical Writer and Web Developer specializing in DDI Technologies, Linux Systems, and Web Solutions">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         :root {
             --primary-color: #f4623a;
             --dark-grey: #2a2a2a;
+            --medium-grey: #3d3d3d;
+            --light-grey: #4a4a4a;
             --text-white: #ffffff;
             --cert-burgundy: #9e1b34;
         }
@@ -28,6 +28,21 @@
             color: var(--text-white);
             background-color: var(--dark-grey);
             overflow-x: hidden;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: var(--text-white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
         }
         
         .navbar {
@@ -55,8 +70,11 @@
             transition: color 0.3s ease;
         }
         
-        .nav-link:hover {
+        .nav-link:hover,
+        .nav-link:focus {
             color: var(--primary-color) !important;
+            outline: 2px solid var(--primary-color);
+            outline-offset: 4px;
         }
         
         .btn-primary {
@@ -66,13 +84,17 @@
             padding: 0.75rem 2rem;
             border-radius: 50px;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover,
+        .btn-primary:focus {
             background-color: #d94d2a;
             border-color: #d94d2a;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(244, 98, 58, 0.3);
+            outline: 3px solid rgba(244, 98, 58, 0.5);
+            outline-offset: 2px;
         }
         
         section {
@@ -97,7 +119,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
         }
         
         #cover .content {
@@ -112,8 +134,25 @@
         }
         
         #cover p {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 2rem;
+            color: var(--text-white);
+        }
+        
+        #portfolio {
+            background-color: #1a3a52;
+        }
+        
+        #education {
+            background-color: #2d1b2e;
+        }
+        
+        #projects {
+            background-color: #1e3a1e;
+        }
+        
+        #contact {
+            background-color: #3a2a1a;
         }
         
         .section-title {
@@ -134,7 +173,8 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             padding: 1.5rem;
             cursor: pointer;
@@ -153,9 +193,12 @@
             transform: scale(1);
         }
         
-        .portfolio-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .portfolio-item:hover,
+        .portfolio-item:focus {
+            background: rgba(255, 255, 255, 0.15);
             transform: scale(1.05);
+            outline: 3px solid var(--primary-color);
+            outline-offset: 4px;
         }
         
         .portfolio-item h4 {
@@ -180,6 +223,43 @@
         
         .modal-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-close {
+            filter: invert(1);
+        }
+        
+        .btn-close:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        .gallery-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .gallery-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gallery-img:hover,
+        .gallery-img:focus {
+            transform: scale(1.05);
+            outline: 3px solid var(--primary-color);
+            outline-offset: 4px;
         }
         
         .timeline {
@@ -214,11 +294,29 @@
         }
         
         .timeline-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            padding: 2rem;
+            padding: 0;
             width: 45%;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-card-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .timeline-card-content {
+            padding: 2rem;
+        }
+        
+        .timeline-card:hover,
+        .timeline-card:focus-within {
+            background: rgba(255, 255, 255, 0.15);
         }
         
         .timeline-item:nth-child(odd) .timeline-card {
@@ -228,13 +326,13 @@
         .timeline-card::before {
             content: '';
             position: absolute;
-            top: 50%;
+            top: 180px;
             width: 20px;
             height: 20px;
             background: var(--primary-color);
             border-radius: 50%;
             transform: translateY(-50%);
-            border: 3px solid var(--dark-grey);
+            border: 3px solid #1e3a1e;
             z-index: 1;
         }
         
@@ -246,14 +344,31 @@
             right: -63px;
         }
         
+        .timeline-card a {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .timeline-card a:hover,
+        .timeline-card a:focus {
+            color: #ff7a4d;
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
         .education-item {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 1rem;
             display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 1rem;
+            max-width: 5in;
+            height: 0.9in;
+            margin-left: auto;
+            margin-right: auto;
             opacity: 0;
             transform: translateX(-30px);
             transition: all 0.6s ease;
@@ -264,41 +379,76 @@
             transform: translateX(0);
         }
         
+        .education-item:hover,
+        .education-item:focus-within {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
         .education-item .cert-icon {
             flex-shrink: 0;
         }
         
+        .education-item .content {
+            flex: 1;
+            min-width: 0;
+            line-height: 1.3;
+        }
+        
         .education-item h4 {
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin: 0;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .education-item p {
+            margin: 0;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .education-item a {
-            color: var(--primary-color);
+            color: var(--text-white);
             text-decoration: none;
         }
         
-        .education-item a:hover {
+        .education-item a:hover,
+        .education-item a:focus {
+            color: var(--primary-color);
             text-decoration: underline;
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
         
         .contact-form .form-control,
         .contact-form .form-control:focus {
-            background: #e0e0e0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #333;
+            background: #d3d3d3;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
         }
         
         .contact-form .form-control:focus {
             box-shadow: 0 0 0 0.2rem rgba(244, 98, 58, 0.25);
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
         }
         
         .contact-form .form-control::placeholder {
-            color: #666;
+            color: #4a4a4a;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
         footer {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             padding: 3rem 0 1rem;
             text-align: center;
         }
@@ -308,23 +458,26 @@
             font-size: 2rem;
             margin: 0 1rem;
             transition: color 0.3s ease;
+            display: inline-block;
         }
         
-        .social-links a:hover {
+        .social-links a:hover,
+        .social-links a:focus {
             color: var(--primary-color);
+            outline: 3px solid var(--primary-color);
+            outline-offset: 4px;
         }
         
-        .gallery-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
         }
         
-        .gallery-img:hover {
-            transform: scale(1.05);
+        footer a:hover,
+        footer a:focus {
+            text-decoration: underline;
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
         
         .fade-in {
@@ -353,15 +506,17 @@
                 height: auto;
                 min-height: 200px;
             }
+            
+            .education-item {
+                max-width: 100%;
+                height: auto;
+                min-height: 0.9in;
+            }
         }
         
         @media (max-width: 768px) {
             #cover h1 {
                 font-size: 2.5rem;
-            }
-            
-            #cover p {
-                font-size: 1.5rem;
             }
             
             .portfolio-circle {
@@ -381,15 +536,21 @@
             .timeline-item:nth-child(even) .timeline-card::before {
                 left: -40px;
             }
+            
+            .timeline-card::before {
+                border-color: #1e3a1e;
+            }
         }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <div id="app">
-        <nav class="navbar navbar-expand-lg" :class="{ scrolled: isScrolled }">
+        <nav class="navbar navbar-expand-lg" :class="{ scrolled: isScrolled }" role="navigation" aria-label="Main navigation">
             <div class="container">
                 <a class="navbar-brand" href="#cover">Kent Schaeffer</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-controls="navbarNav" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -403,150 +564,165 @@
             </div>
         </nav>
 
-        <section id="cover">
+        <section id="cover" aria-labelledby="hero-heading">
             <div class="content">
-                <h1>Technical Writer and Web Developer</h1>
-                <p>Specializing in DDI Technologies, Linux Systems, and Web Solutions</p>
-                <button class="btn btn-primary" @click="scrollToSection('portfolio')">
-                    View My Work <i class="fa fa-arrow-down ms-2"></i>
+                <h1 id="hero-heading">Kent Schaeffer</h1>
+                <p>Technical Writer | Consultant</p>
+                <button class="btn btn-primary" @click="scrollToSection('portfolio')" aria-label="View my portfolio">
+                    View My Work <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
                 </button>
             </div>
         </section>
 
-        <section id="portfolio">
-            <div class="container">
-                <h2 class="section-title">Portfolio & Examples</h2>
-                <div class="portfolio-circle">
-                    <div class="portfolio-item" 
-                         v-for="(item, index) in portfolioItems" 
-                         :key="item.id"
-                         :style="getCirclePosition(index, portfolioItems.length)"
-                         :class="{ visible: item.visible }"
-                         @click="openGallery(item)">
-                        <h4>{{ item.title }}</h4>
-                        <p>{{ item.description }}</p>
+        <main id="main-content">
+            <section id="portfolio" aria-labelledby="portfolio-heading">
+                <div class="container">
+                    <h2 id="portfolio-heading" class="section-title">Portfolio & Examples</h2>
+                    <div class="portfolio-circle" role="list" aria-label="Portfolio items">
+                        <div class="portfolio-item" 
+                             v-for="(item, index) in portfolioItems" 
+                             :key="item.id"
+                             :style="getCirclePosition(index, portfolioItems.length)"
+                             :class="{ visible: item.visible }"
+                             @click="openGallery(item)"
+                             @keypress.enter="openGallery(item)"
+                             tabindex="0"
+                             role="button"
+                             :aria-label="'View details for ' + item.title">
+                            <h4>{{ item.title }}</h4>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button class="btn btn-primary" @click="scrollToSection('education')" aria-label="Go to education section">
+                            Education <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="text-center mt-5">
-                    <button class="btn btn-primary" @click="scrollToSection('education')">
-                        Education <i class="fa fa-arrow-down ms-2"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="education">
-            <div class="container">
-                <h2 class="section-title">Education & Certifications</h2>
-                <div class="row">
-                    <div class="col-lg-10 mx-auto">
-                        <div class="education-item" v-for="(item, index) in educationItems" :key="index">
-                            <div class="cert-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="#9e1b34" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>{{ item.title }}</h4>
-                                <p class="mb-1" v-if="item.institution">
-                                    <a :href="item.link" target="_blank">{{ item.institution }}</a>
-                                </p>
-                                <p class="text-muted" v-if="item.year">{{ item.year }}</p>
-                                <p v-if="item.details">{{ item.details }}</p>
+            <section id="education" aria-labelledby="education-heading">
+                <div class="container">
+                    <h2 id="education-heading" class="section-title">Education & Certifications</h2>
+                    <div class="row">
+                        <div class="col-lg-10 mx-auto">
+                            <div class="education-item" v-for="(item, index) in educationItems" :key="index" role="article">
+                                <div class="cert-icon" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" :fill="item.color || '#9e1b34'" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"></path>
+                                    </svg>
+                                </div>
+                                <div class="content">
+                                    <h4 :title="item.title">{{ item.title }}</h4>
+                                    <p v-if="item.institution">
+                                        <a :href="item.link" target="_blank" rel="noopener noreferrer" :title="'Visit ' + item.institution + ' website'">{{ item.institution }}</a> <span v-if="item.year">| {{ item.year }}</span>
+                                    </p>
+                                    <p v-if="item.details" class="text-muted" :title="item.details">{{ item.details }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="text-center mt-5">
+                        <button class="btn btn-primary" @click="scrollToSection('projects')" aria-label="Go to projects section">
+                            Projects <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="text-center mt-5">
-                    <button class="btn btn-primary" @click="scrollToSection('projects')">
-                        Projects <i class="fa fa-arrow-down ms-2"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="projects">
-            <div class="container">
-                <h2 class="section-title">Project Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item" v-for="(project, index) in projects" :key="index">
-                        <div class="timeline-card">
-                            <h4 style="color: var(--primary-color)">{{ project.title }}</h4>
-                            <p class="mb-2"><strong>{{ project.role }}</strong></p>
-                            <p class="mb-2" v-if="project.company">
-                                <a :href="project.link" target="_blank" style="color: var(--primary-color)">{{ project.company }}</a>
-                            </p>
-                            <p class="text-muted mb-2" v-if="project.dates">{{ project.dates }}</p>
-                            <p>{{ project.description }}</p>
+            <section id="projects" aria-labelledby="projects-heading">
+                <div class="container">
+                    <h2 id="projects-heading" class="section-title">Project Experience</h2>
+                    <div class="timeline" role="list" aria-label="Project timeline">
+                        <div class="timeline-item" v-for="(project, index) in projects" :key="index" role="listitem">
+                            <article class="timeline-card">
+                                <img :src="project.image" :alt="project.title + ' project image'" class="timeline-card-image">
+                                <div class="timeline-card-content">
+                                    <h4 style="color: var(--primary-color)">{{ project.title }}</h4>
+                                    <p class="mb-2"><strong>{{ project.role }}</strong></p>
+                                    <p class="mb-2" v-if="project.company">
+                                        <a :href="project.link" target="_blank" rel="noopener noreferrer" :aria-label="'Visit ' + project.company + ' website'">{{ project.company }}</a>
+                                    </p>
+                                    <p class="text-muted mb-2" v-if="project.dates">{{ project.dates }}</p>
+                                    <p>{{ project.description }}</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button class="btn btn-primary" @click="scrollToSection('contact')" aria-label="Go to contact section">
+                            Contact <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" aria-labelledby="contact-heading">
+                <div class="container">
+                    <h2 id="contact-heading" class="section-title">Get In Touch</h2>
+                    <div class="row">
+                        <div class="col-lg-6 mx-auto">
+                            <form class="contact-form fade-in" @submit.prevent="submitForm" aria-label="Contact form">
+                                <div class="mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" class="form-control" v-model="form.name" placeholder="Your Name" required aria-required="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="form-control" v-model="form.email" placeholder="Your Email" required aria-required="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" class="form-control" v-model="form.subject" placeholder="Subject" required aria-required="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" class="form-control" v-model="form.message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" :disabled="submitting" :aria-busy="submitting">
+                                        <span v-if="!submitting">Send Message</span>
+                                        <span v-else>Sending...</span>
+                                    </button>
+                                </div>
+                                <div v-if="submitMessage" class="alert mt-3" :class="submitSuccess ? 'alert-success' : 'alert-danger'" role="alert">
+                                    {{ submitMessage }}
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="text-center mt-5">
-                    <button class="btn btn-primary" @click="scrollToSection('contact')">
-                        Contact <i class="fa fa-arrow-down ms-2"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <section id="contact">
+        <footer role="contentinfo">
             <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="row">
-                    <div class="col-lg-6 mx-auto">
-                        <form class="contact-form fade-in" @submit.prevent="submitForm">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" v-model="form.name" placeholder="Your Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" v-model="form.email" placeholder="Your Email" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" v-model="form.subject" placeholder="Subject" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" v-model="form.message" rows="5" placeholder="Your Message" required></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">
-                                    <span v-if="!submitting">Send Message</span>
-                                    <span v-else>Sending...</span>
-                                </button>
-                            </div>
-                            <div v-if="submitMessage" class="alert mt-3" :class="submitSuccess ? 'alert-success' : 'alert-danger'">
-                                {{ submitMessage }}
-                            </div>
-                        </form>
+                <nav aria-label="Social media links">
+                    <div class="social-links mb-4">
+                        <a href="https://linkedin.com/in/kentmschaeffer" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Personal website"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                        <a href="https://docs.kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Documentation website"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                        <a href="https://github.com/kentknowsme" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><i class="fa fa-github" aria-hidden="true"></i></a>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="container">
-                <div class="social-links mb-4">
-                    <a href="https://linkedin.com/in/kentmschaeffer" target="_blank"><i class="fa fa-linkedin"></i></a>
-                    <a href="https://kentknowsme.com" target="_blank"><i class="fa fa-globe"></i></a>
-                    <a href="https://docs.kentknowsme.com" target="_blank"><i class="fa fa-file-text"></i></a>
-                    <a href="https://github.com/kentknowsme" target="_blank"><i class="fa fa-github"></i></a>
-                </div>
-                <p>Photos by <a href="https://unsplash.com" target="_blank" style="color: var(--primary-color)">Unsplash</a></p>
-                <p>&copy; {{ currentYear }} <a href="https://kentknowsme.com" target="_blank" style="color: var(--primary-color)">Kent Schaeffer</a>. All rights reserved.</p>
+                </nav>
+                <p>Photos by <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
+                <p>&copy; {{ currentYear }} <a href="https://kentknowsme.com" target="_blank" rel="noopener noreferrer">Kent Schaeffer</a>. All rights reserved.</p>
             </div>
         </footer>
 
-        <div class="modal fade" id="galleryModal" tabindex="-1">
+        <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ currentGallery.title }}</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        <h5 class="modal-title" id="galleryModalLabel">{{ currentGallery.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal"></button>
                     </div>
                     <div class="modal-body">
                         <p>{{ currentGallery.details }}</p>
                         <div class="row mt-4">
-                            <div class="col-md-6 mb-3" v-for="(img, index) in currentGallery.images" :key="index">
-                                <img :src="img" class="gallery-img" alt="Gallery image">
+                            <div class="col-md-6 gallery-item" v-for="(img, index) in currentGallery.images" :key="index">
+                                <div class="gallery-label">{{ currentGallery.imageLabels[index] }}</div>
+                                <img :src="img" class="gallery-img" :alt="currentGallery.imageLabels[index]" tabindex="0">
                             </div>
                         </div>
                     </div>
@@ -584,6 +760,7 @@
                                 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
                                 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800'
                             ],
+                            imageLabels: ['Network Infrastructure Diagram', 'DNS Zone Configuration'],
                             visible: false
                         },
                         {
@@ -595,6 +772,7 @@
                                 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
                                 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800'
                             ],
+                            imageLabels: ['Website Analytics Dashboard', 'Modern Web Development'],
                             visible: false
                         },
                         {
@@ -607,6 +785,7 @@
                                 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
                                 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800'
                             ],
+                            imageLabels: ['Technical Documentation Example', 'System Architecture Documentation'],
                             visible: false
                         },
                         {
@@ -618,6 +797,7 @@
                                 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800',
                                 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800'
                             ],
+                            imageLabels: ['Cloud Infrastructure Dashboard', 'CI/CD Pipeline Configuration'],
                             visible: false
                         },
                         {
@@ -629,6 +809,7 @@
                                 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
                                 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800'
                             ],
+                            imageLabels: ['Network Topology Diagram', 'Infrastructure Architecture'],
                             visible: false
                         },
                         {
@@ -640,6 +821,7 @@
                                 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800',
                                 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800'
                             ],
+                            imageLabels: ['Terminal Automation Script', 'Linux System Configuration'],
                             visible: false
                         },
                         {
@@ -651,6 +833,7 @@
                                 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800',
                                 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800'
                             ],
+                            imageLabels: ['Server Monitoring Dashboard', 'Unix System Administration'],
                             visible: false
                         },
                         {
@@ -662,6 +845,7 @@
                                 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800',
                                 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800'
                             ],
+                            imageLabels: ['Backend API Development', 'Full-Stack Application Code'],
                             visible: false
                         }
                     ],
@@ -671,74 +855,86 @@
                             institution: 'Brigham Young University-Hawaii',
                             link: 'https://www.byuh.edu',
                             year: '1996',
-                            details: 'Minor: Business Management'
+                            details: 'Minor: Business Management',
+                            color: '#002E5D'
                         },
                         {
                             title: 'Computer Graphics Certificate Program',
                             institution: 'Collins College',
                             link: 'https://www.collinscollege.edu',
-                            year: '2002'
+                            year: '2002',
+                            color: '#003087'
                         },
                         {
                             title: 'CompTIA A+ Core 1',
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
                             year: 'October 2025',
-                            details: 'Currently studying for Core 2 exam'
+                            details: 'Currently studying for Core 2 exam',
+                            color: '#C8102E'
                         },
                         {
                             title: 'JavaScript Algorithms and Data Structures',
                             institution: 'freeCodeCamp',
                             link: 'https://www.freecodecamp.org',
-                            year: '2024 & 2022'
+                            year: '2024 & 2022',
+                            color: '#0A0A23'
                         },
                         {
                             title: 'Adult and Pediatric First Aid/CPR/AED',
                             institution: 'American Red Cross',
                             link: 'https://www.redcross.org',
-                            year: '2024'
+                            year: '2024',
+                            color: '#ED1B2E'
                         },
                         {
                             title: 'Youth Mental Health First Aid',
                             institution: 'Mental Health First Aid Team',
                             link: 'https://www.mentalhealthfirstaid.org',
-                            year: '2023'
+                            year: '2023',
+                            color: '#00A651'
                         },
                         {
                             title: 'Responsive Web Design',
                             institution: 'freeCodeCamp',
                             link: 'https://www.freecodecamp.org',
-                            year: '2021'
+                            year: '2021',
+                            color: '#0A0A23'
                         },
                         {
                             title: 'AWS Certified Cloud Practitioner',
                             institution: 'Amazon Web Services',
                             link: 'https://aws.amazon.com',
-                            year: '2021'
+                            year: '2021',
+                            color: '#FF9900'
                         },
                         {
                             title: 'Scrum Fundamentals Certified',
                             institution: 'ScrumStudy.com',
                             link: 'https://www.scrumstudy.com',
-                            year: '2020'
+                            year: '2020',
+                            color: '#009FDA'
                         },
                         {
                             title: 'IPv6 Explorer Certification',
                             institution: 'Hurricane Electric',
                             link: 'https://he.net',
-                            year: '2016'
+                            year: '2016',
+                            color: '#0066CC'
                         },
                         {
                             title: 'Network+ Certification',
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
-                            year: '2005'
+                            year: '2005',
+                            color: '#C8102E'
                         },
                         {
                             title: 'Certified NetWare Administrator (3.x)',
                             institution: 'Novell',
                             link: 'https://www.novell.com',
-                            year: '1994'
+                            year: '1994',
+                            color: '#EE0000'
                         }
                     ],
                     projects: [
@@ -748,7 +944,8 @@
                             company: 'Western Governors University',
                             link: 'https://www.wgu.edu',
                             dates: 'Jul 2025 - Sep 2025',
-                            description: 'Delivered exceptional customer service and technical support to students. Addressed technical issues efficiently while maintaining high satisfaction levels and collaborated with team members to enhance support processes.'
+                            description: 'Delivered exceptional customer service and technical support to students. Addressed technical issues efficiently while maintaining high satisfaction levels and collaborated with team members to enhance support processes.',
+                            image: 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Digital Literacy Education',
@@ -756,7 +953,8 @@
                             company: 'English Skills Learning Center',
                             link: 'https://www.eslcenter.org',
                             dates: 'Jan 2024 - Sep 2024',
-                            description: 'Designed and delivered comprehensive Digital Literacy curriculum for adult Emergent Reader learners. Taught over 120 students daily and planned, installed, configured, and maintained first computer lab with over 30 laptops.'
+                            description: 'Designed and delivered comprehensive Digital Literacy curriculum for adult Emergent Reader learners. Taught over 120 students daily and planned, installed, configured, and maintained first computer lab with over 30 laptops.',
+                            image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'BPM Platform Integration',
@@ -764,7 +962,8 @@
                             company: 'Fidelity Investments (via Eliassen Group)',
                             link: 'https://www.fidelity.com',
                             dates: 'Jun 2023 - Sep 2023',
-                            description: 'Led the design and implementation of integration guides for business units migrating to a new Camunda-based BPM platform. Streamlined processes and developed comprehensive documentation.'
+                            description: 'Led the design and implementation of integration guides for business units migrating to a new Camunda-based BPM platform. Streamlined processes and developed comprehensive documentation.',
+                            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Network Security Automation',
@@ -772,7 +971,8 @@
                             company: 'Consolidated Edison (via Randstad)',
                             link: 'https://www.coned.com',
                             dates: 'Dec 2022 - Mar 2023',
-                            description: 'Enhanced network device monitoring and management by revamping dashboards and UI services. Automated configuration changes during potential security breaches using PowerShell, HTML, XML, and BMC Network Automation.'
+                            description: 'Enhanced network device monitoring and management by revamping dashboards and UI services. Automated configuration changes during potential security breaches using PowerShell, HTML, XML, and BMC Network Automation.',
+                            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Data Automation & Cloud Infrastructure',
@@ -780,7 +980,8 @@
                             company: 'Five9 Inc',
                             link: 'https://www.five9.com',
                             dates: 'Jan 2022 - Sep 2022',
-                            description: 'Engineered custom code that automated data feeds and reporting processes. Configured, deployed, documented, and maintained VM servers in hybrid cloud environment using Google Cloud, CentOS, PostgreSQL, Apache, and MySQL.'
+                            description: 'Engineered custom code that automated data feeds and reporting processes. Configured, deployed, documented, and maintained VM servers in hybrid cloud environment using Google Cloud, CentOS, PostgreSQL, Apache, and MySQL.',
+                            image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Global DDI Team Leadership',
@@ -788,7 +989,8 @@
                             company: 'Goldman Sachs',
                             link: 'https://www.goldmansachs.com',
                             dates: 'Jun 2021 - Dec 2021',
-                            description: 'Accelerated career growth from Analyst to Vice President by leading the build-out of a global DDI team. Modernized infrastructure processes and spearheaded implementation of best practices for DNS, DHCP, and IPAM.'
+                            description: 'Accelerated career growth from Analyst to Vice President by leading the build-out of a global DDI team. Modernized infrastructure processes and spearheaded implementation of best practices for DNS, DHCP, and IPAM.',
+                            image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Information Security Engineering',
@@ -796,7 +998,8 @@
                             company: 'Wells Fargo Bank',
                             link: 'https://www.wellsfargo.com',
                             dates: 'Mar 2018 - Dec 2020',
-                            description: 'Standardized system processes and configurations for Cyber Threat Management Group. Co-architected technical configuration for Anomaly Behavior Project integrating MySQL, PostgreSQL, Cloudera Data Platform, and Trifacta.'
+                            description: 'Standardized system processes and configurations for Cyber Threat Management Group. Co-architected technical configuration for Anomaly Behavior Project integrating MySQL, PostgreSQL, Cloudera Data Platform, and Trifacta.',
+                            image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'DDI Automation & Technical Leadership',
@@ -804,7 +1007,8 @@
                             company: 'Wells Fargo Bank',
                             link: 'https://www.wellsfargo.com',
                             dates: 'Jul 2015 - Mar 2018',
-                            description: 'Promoted to Technical Team Lead based on dedication to ingenuity and automation. Developed automation tools using Perl, HTML, bash/korn shell, and Infoblox IPAM. Saved enterprise email record migration project time and funds by deploying over 9,000 record changes.'
+                            description: 'Promoted to Technical Team Lead based on dedication to ingenuity and automation. Developed automation tools using Perl, HTML, bash/korn shell, and Infoblox IPAM. Saved enterprise email record migration project time and funds by deploying over 9,000 record changes.',
+                            image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'Enterprise DDI Infrastructure',
@@ -812,7 +1016,8 @@
                             company: 'Wells Fargo Bank',
                             link: 'https://www.wellsfargo.com',
                             dates: 'Aug 2008 - Jul 2015',
-                            description: 'Provided comprehensive engineering support for enterprise DDI infrastructure. Pioneered documentation processes during Wells Fargo and Wachovia merger by developing first set of combined process documentation and network diagrams.'
+                            description: 'Provided comprehensive engineering support for enterprise DDI infrastructure. Pioneered documentation processes during Wells Fargo and Wachovia merger by developing first set of combined process documentation and network diagrams.',
+                            image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'E-Business Infrastructure',
@@ -820,7 +1025,8 @@
                             company: 'Avnet',
                             link: 'https://www.avnet.com',
                             dates: 'Jan 2000 - May 2002',
-                            description: 'Co-architected internal inventory & lookup web tool used division-wide. Installed, secured, and managed 500+ Windows NT/2000 Servers, F5 BigIP load balancers in enterprise DMZ environment. Maintained DNS BIND and administered company-wide DNS zones.'
+                            description: 'Co-architected internal inventory & lookup web tool used division-wide. Installed, secured, and managed 500+ Windows NT/2000 Servers, F5 BigIP load balancers in enterprise DMZ environment. Maintained DNS BIND and administered company-wide DNS zones.',
+                            image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1300&h=600&fit=crop'
                         },
                         {
                             title: 'IT Hotel Operations Management',
@@ -828,13 +1034,15 @@
                             company: 'Starwood Hotels - St Regis and Century Plaza',
                             link: 'https://www.marriott.com',
                             dates: 'May 2003 - Jul 2004',
-                            description: 'Managed Server/Client, internet, telecomm and Retail POS technologies on 24x7x365 basis for large convention and luxury hotel. Maintained infrastructure supporting over 300 staff, 1100 guest rooms, multiple restaurants, and 100k sq ft convention space.'
+                            description: 'Managed Server/Client, internet, telecomm and Retail POS technologies on 24x7x365 basis for large convention and luxury hotel. Maintained infrastructure supporting over 300 staff, 1100 guest rooms, multiple restaurants, and 100k sq ft convention space.',
+                            image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1300&h=600&fit=crop'
                         }
                     ],
                     currentGallery: {
                         title: '',
                         details: '',
-                        images: []
+                        images: [],
+                        imageLabels: []
                     }
                 };
             },
@@ -904,7 +1112,8 @@
                     this.currentGallery = {
                         title: item.title,
                         details: item.details,
-                        images: item.images
+                        images: item.images,
+                        imageLabels: item.imageLabels
                     };
                     const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
                     modal.show();
