@@ -7,14 +7,22 @@
     <meta name="description" content="Kent Schaeffer - Technical Writer and Web Developer specializing in DDI Technologies, Linux Systems, and Web Solutions">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=merriweather:400,700" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #f4623a;
-            --dark-grey: #2a2a2a;
-            --medium-grey: #3d3d3d;
-            --light-grey: #4a4a4a;
+            --primary-sand: #D4A574;
+            --secondary-sage: #7A9B76;
+            --accent-terracotta: #C67B5C;
+            --bg-midnight: #0f1923;
             --text-white: #ffffff;
-            --cert-burgundy: #9e1b34;
+            --text-dark: #1a1a1a;
+        }
+        
+        body.light-mode {
+            --bg-midnight: #f5f5f5;
+            --text-white: #1a1a1a;
+            --text-dark: #ffffff;
         }
         
         * {
@@ -24,18 +32,19 @@
         }
         
         body {
-            font-family: Merriweather, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            font-family: 'Merriweather', serif;
             color: var(--text-white);
-            background-color: var(--dark-grey);
+            background-color: var(--bg-midnight);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .skip-link {
             position: absolute;
             top: -40px;
             left: 0;
-            background: var(--primary-color);
-            color: var(--text-white);
+            background: var(--primary-sand);
+            color: var(--text-dark);
             padding: 8px;
             text-decoration: none;
             z-index: 100;
@@ -55,7 +64,11 @@
         }
         
         .navbar.scrolled {
-            background-color: rgba(42, 42, 42, 0.95) !important;
+            background-color: rgba(15, 25, 35, 0.95) !important;
+        }
+        
+        body.light-mode .navbar.scrolled {
+            background-color: rgba(245, 245, 245, 0.95) !important;
         }
         
         .navbar-brand {
@@ -68,13 +81,160 @@
             color: var(--text-white) !important;
             margin: 0 1rem;
             transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .dark-mode-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 2rem;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--primary-color);
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--accent-sand);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .mode-icon {
+            font-size: 1.2rem;
+            color: var(--text-white);
         }
         
         .nav-link:hover,
         .nav-link:focus {
-            color: var(--primary-color) !important;
-            outline: 2px solid var(--primary-color);
+            color: var(--accent-sand) !important;
+            outline: 2px solid var(--accent-sand);
             outline-offset: 4px;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            background: var(--secondary-sage);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .dark-mode-toggle.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .dark-mode-toggle:hover,
+        .dark-mode-toggle:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            outline: 3px solid var(--secondary-sage);
+            outline-offset: 2px;
+        }
+        
+        .home-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: var(--primary-sand);
+            color: var(--text-dark);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .home-button.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .home-button:hover,
+        .home-button:focus {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            outline: 3px solid var(--secondary-sage);
+            outline-offset: 2px;
         }
         
         .btn-primary {
@@ -89,11 +249,12 @@
         
         .btn-primary:hover,
         .btn-primary:focus {
-            background-color: #d94d2a;
-            border-color: #d94d2a;
+            background-color: var(--accent-sand);
+            border-color: var(--accent-sand);
+            color: var(--text-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(244, 98, 58, 0.3);
-            outline: 3px solid rgba(244, 98, 58, 0.5);
+            box-shadow: 0 4px 8px rgba(212, 165, 116, 0.3);
+            outline: 3px solid var(--accent-sand);
             outline-offset: 2px;
         }
         
@@ -101,6 +262,7 @@
             min-height: 100vh;
             padding: 6rem 0 4rem;
             position: relative;
+            background-color: var(--bg-midnight);
         }
         
         #cover {
@@ -110,6 +272,7 @@
             justify-content: center;
             text-align: center;
             position: relative;
+            padding-bottom: 8rem;
         }
         
         #cover::before {
@@ -131,35 +294,15 @@
             font-size: 4rem;
             margin-bottom: 1rem;
             font-weight: bold;
-        }
-        
-        #cover p {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--text-white);
-        }
-        
-        #portfolio {
-            background-color: #1a3a52;
-        }
-        
-        #education {
-            background-color: #2d1b2e;
-        }
-        
-        #projects {
-            background-color: #1e3a1e;
-        }
-        
-        #contact {
-            background-color: #3a2a1a;
+            color: #ffffff;
         }
         
         .section-title {
             font-size: 2.5rem;
             margin-bottom: 3rem;
             text-align: center;
-            color: var(--primary-color);
+            color: var(--primary-sand);
+            font-weight: bold;
         }
         
         .portfolio-circle {
@@ -173,8 +316,8 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(212, 165, 116, 0.1);
+            border: 2px solid rgba(212, 165, 116, 0.3);
             border-radius: 10px;
             padding: 1.5rem;
             cursor: pointer;
@@ -188,6 +331,11 @@
             transform: scale(0.8);
         }
         
+        body.light-mode .portfolio-item {
+            background: rgba(212, 165, 116, 0.2);
+            border: 2px solid rgba(212, 165, 116, 0.4);
+        }
+        
         .portfolio-item.visible {
             opacity: 1;
             transform: scale(1);
@@ -195,9 +343,9 @@
         
         .portfolio-item:hover,
         .portfolio-item:focus {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(212, 165, 116, 0.2);
             transform: scale(1.05);
-            outline: 3px solid var(--primary-color);
+            outline: 3px solid var(--accent-sand);
             outline-offset: 4px;
         }
         
@@ -213,24 +361,28 @@
         }
         
         .modal-content {
-            background-color: var(--dark-grey);
+            background-color: var(--bg-midnight);
             color: var(--text-white);
         }
         
         .modal-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
         }
         
         .modal-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
         }
         
         .btn-close {
             filter: invert(1);
         }
         
+        body.light-mode .btn-close {
+            filter: invert(0);
+        }
+        
         .btn-close:focus {
-            outline: 3px solid var(--primary-color);
+            outline: 3px solid var(--primary-sand);
             outline-offset: 2px;
         }
         
@@ -240,7 +392,7 @@
         
         .gallery-label {
             font-weight: 600;
-            color: var(--primary-color);
+            color: var(--primary-sand);
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
@@ -258,7 +410,7 @@
         .gallery-img:hover,
         .gallery-img:focus {
             transform: scale(1.05);
-            outline: 3px solid var(--primary-color);
+            outline: 3px solid var(--accent-sand);
             outline-offset: 4px;
         }
         
@@ -294,13 +446,18 @@
         }
         
         .timeline-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(212, 165, 116, 0.1);
+            border: 2px solid rgba(212, 165, 116, 0.3);
             border-radius: 10px;
             padding: 0;
             width: 45%;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+        }
+        
+        body.light-mode .timeline-card {
+            background: rgba(212, 165, 116, 0.15);
+            border: 2px solid rgba(212, 165, 116, 0.4);
         }
         
         .timeline-card-image {
@@ -316,32 +473,53 @@
         
         .timeline-card:hover,
         .timeline-card:focus-within {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(212, 165, 116, 0.15);
         }
         
         .timeline-item:nth-child(odd) .timeline-card {
             margin-left: auto;
         }
         
-        .timeline-card::before {
+        .timeline-card::after {
             content: '';
             position: absolute;
-            top: 180px;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-color);
+            width: 25px;
+            height: 25px;
+            background-color: var(--primary-color);
+            top: 150px;
             border-radius: 50%;
-            transform: translateY(-50%);
-            border: 3px solid #1e3a1e;
-            z-index: 1;
+            z-index: 10;
+            border: 4px solid var(--bg-midnight);
         }
         
-        .timeline-item:nth-child(odd) .timeline-card::before {
+        .timeline-item:nth-child(odd) .timeline-card::after {
             left: -63px;
         }
         
-        .timeline-item:nth-child(even) .timeline-card::before {
+        .timeline-item:nth-child(even) .timeline-card::after {
             right: -63px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-card::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 0;
+            border: medium solid;
+            border-width: 12px 0 12px 15px;
+            border-color: transparent transparent transparent rgba(212, 165, 116, 0.3);
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-card::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 0;
+            border: medium solid;
+            border-width: 12px 15px 12px 0;
+            border-color: transparent rgba(212, 165, 116, 0.3) transparent transparent;
+            z-index: 1;
         }
         
         .timeline-card a {
@@ -351,27 +529,32 @@
         
         .timeline-card a:hover,
         .timeline-card a:focus {
-            color: #ff7a4d;
-            outline: 2px solid var(--primary-color);
+            color: var(--accent-sand);
+            outline: 2px solid var(--accent-sand);
             outline-offset: 2px;
         }
         
         .education-item {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(212, 165, 116, 0.1);
+            border: 2px solid rgba(212, 165, 116, 0.3);
             border-radius: 10px;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 1.5rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 1rem;
-            max-width: 5in;
-            height: 0.9in;
+            max-width: 7in;
+            min-height: 1.2in;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
             transform: translateX(-30px);
             transition: all 0.6s ease;
+        }
+        
+        body.light-mode .education-item {
+            background: rgba(212, 165, 116, 0.15);
+            border: 2px solid rgba(212, 165, 116, 0.4);
         }
         
         .education-item.visible {
@@ -381,7 +564,7 @@
         
         .education-item:hover,
         .education-item:focus-within {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(212, 165, 116, 0.15);
         }
         
         .education-item .cert-icon {
@@ -391,24 +574,26 @@
         .education-item .content {
             flex: 1;
             min-width: 0;
-            line-height: 1.3;
+            line-height: 1.4;
         }
         
         .education-item h4 {
             color: var(--primary-color);
-            margin: 0;
+            margin: 0 0 0.25rem 0;
             font-size: 0.95rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
         }
         
         .education-item p {
-            margin: 0;
+            margin: 0 0 0.25rem 0;
+            font-size: 0.85rem;
+            white-space: normal;
+        }
+        
+        .education-item .description {
             font-size: 0.8rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
         }
         
         .education-item a {
@@ -418,27 +603,28 @@
         
         .education-item a:hover,
         .education-item a:focus {
-            color: var(--primary-color);
+            color: var(--accent-sand);
             text-decoration: underline;
-            outline: 2px solid var(--primary-color);
+            outline: 2px solid var(--accent-sand);
             outline-offset: 2px;
         }
         
         .contact-form .form-control,
         .contact-form .form-control:focus {
-            background: #d3d3d3;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-            color: #1a1a1a;
+            background: #f5f5f5;
+            border: 2px solid rgba(212, 165, 116, 0.5);
+            color: #000000;
+            font-weight: 500;
         }
         
         .contact-form .form-control:focus {
-            box-shadow: 0 0 0 0.2rem rgba(244, 98, 58, 0.25);
-            outline: 3px solid var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(212, 165, 116, 0.25);
+            outline: 3px solid var(--primary-sand);
             outline-offset: 2px;
         }
         
         .contact-form .form-control::placeholder {
-            color: #4a4a4a;
+            color: #666666;
         }
         
         .contact-form label {
@@ -453,6 +639,10 @@
             text-align: center;
         }
         
+        body.light-mode footer {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
         .social-links a {
             color: var(--text-white);
             font-size: 2rem;
@@ -463,8 +653,8 @@
         
         .social-links a:hover,
         .social-links a:focus {
-            color: var(--primary-color);
-            outline: 3px solid var(--primary-color);
+            color: var(--accent-sand);
+            outline: 3px solid var(--accent-sand);
             outline-offset: 4px;
         }
         
@@ -476,7 +666,7 @@
         footer a:hover,
         footer a:focus {
             text-decoration: underline;
-            outline: 2px solid var(--primary-color);
+            outline: 2px solid var(--accent-sand);
             outline-offset: 2px;
         }
         
@@ -509,8 +699,8 @@
             
             .education-item {
                 max-width: 100%;
-                height: auto;
-                min-height: 0.9in;
+                min-height: auto;
+                padding: 1rem;
             }
         }
         
@@ -532,13 +722,29 @@
                 margin-left: 2rem !important;
             }
             
-            .timeline-item:nth-child(odd) .timeline-card::before,
-            .timeline-item:nth-child(even) .timeline-card::before {
-                left: -40px;
+            .timeline-item:nth-child(odd) .timeline-card::after,
+            .timeline-item:nth-child(even) .timeline-card::after {
+                left: -38px;
+                top: 150px;
             }
             
-            .timeline-card::before {
-                border-color: #1e3a1e;
+            .timeline-item:nth-child(odd) .timeline-card::before,
+            .timeline-item:nth-child(even) .timeline-card::before {
+                left: 0;
+                border-width: 12px 0 12px 15px;
+                border-color: transparent transparent transparent rgba(212, 165, 116, 0.3);
+            }
+            
+            .timeline-card::after {
+                border-color: var(--bg-midnight);
+            }
+            
+            .dark-mode-toggle {
+                bottom: 90px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
             }
         }
     </style>
@@ -555,10 +761,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" :class="{ active: activeSection === 'cover' }" href="#cover">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" :class="{ active: activeSection === 'portfolio' }" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" :class="{ active: activeSection === 'education' }" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link" :class="{ active: activeSection === 'projects' }" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" :class="{ active: activeSection === 'contact' }" href="#contact">Contact</a></li>
+                        <li class="nav-item dark-mode-switch">
+                            <i class="fa fa-sun-o mode-icon" aria-hidden="true"></i>
+                            <label class="switch">
+                                <input type="checkbox" v-model="darkMode" @change="toggleDarkMode" aria-label="Toggle dark mode">
+                                <span class="slider"></span>
+                            </label>
+                            <i class="fa fa-moon-o mode-icon" aria-hidden="true"></i>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -566,8 +781,7 @@
 
         <section id="cover" aria-labelledby="hero-heading">
             <div class="content">
-                <h1 id="hero-heading">Kent Schaeffer</h1>
-                <p>Technical Writer | Consultant</p>
+                <h1 id="hero-heading">Technical Writer | Consultant</h1>
                 <button class="btn btn-primary" @click="scrollToSection('portfolio')" aria-label="View my portfolio">
                     View My Work <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
                 </button>
@@ -608,7 +822,7 @@
                         <div class="col-lg-10 mx-auto">
                             <div class="education-item" v-for="(item, index) in educationItems" :key="index" role="article">
                                 <div class="cert-icon" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" :fill="item.color || '#9e1b34'" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" :fill="item.color" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"></path>
                                     </svg>
                                 </div>
@@ -617,7 +831,7 @@
                                     <p v-if="item.institution">
                                         <a :href="item.link" target="_blank" rel="noopener noreferrer" :title="'Visit ' + item.institution + ' website'">{{ item.institution }}</a> <span v-if="item.year">| {{ item.year }}</span>
                                     </p>
-                                    <p v-if="item.details" class="text-muted" :title="item.details">{{ item.details }}</p>
+                                    <p v-if="item.details" class="description">{{ item.details }}</p>
                                 </div>
                             </div>
                         </div>
@@ -638,7 +852,7 @@
                             <article class="timeline-card">
                                 <img :src="project.image" :alt="project.title + ' project image'" class="timeline-card-image">
                                 <div class="timeline-card-content">
-                                    <h4 style="color: var(--primary-color)">{{ project.title }}</h4>
+                                    <h4 style="color: var(--primary-sand)">{{ project.title }}</h4>
                                     <p class="mb-2"><strong>{{ project.role }}</strong></p>
                                     <p class="mb-2" v-if="project.company">
                                         <a :href="project.link" target="_blank" rel="noopener noreferrer" :aria-label="'Visit ' + project.company + ' website'">{{ project.company }}</a>
@@ -740,6 +954,9 @@
             data() {
                 return {
                     isScrolled: false,
+                    darkMode: true,
+                    showHomeButton: false,
+                    activeSection: 'cover',
                     currentYear: new Date().getFullYear(),
                     submitting: false,
                     submitMessage: '',
@@ -856,14 +1073,14 @@
                             link: 'https://www.byuh.edu',
                             year: '1996',
                             details: 'Minor: Business Management',
-                            color: '#002E5D'
+                            color: '#4A90E2'
                         },
                         {
                             title: 'Computer Graphics Certificate Program',
                             institution: 'Collins College',
                             link: 'https://www.collinscollege.edu',
                             year: '2002',
-                            color: '#003087'
+                            color: '#5B9BD5'
                         },
                         {
                             title: 'CompTIA A+ Core 1',
@@ -871,35 +1088,35 @@
                             link: 'https://www.comptia.org',
                             year: 'October 2025',
                             details: 'Currently studying for Core 2 exam',
-                            color: '#C8102E'
+                            color: '#E74C3C'
                         },
                         {
                             title: 'JavaScript Algorithms and Data Structures',
                             institution: 'freeCodeCamp',
                             link: 'https://www.freecodecamp.org',
                             year: '2024 & 2022',
-                            color: '#0A0A23'
+                            color: '#3B82F6'
                         },
                         {
                             title: 'Adult and Pediatric First Aid/CPR/AED',
                             institution: 'American Red Cross',
                             link: 'https://www.redcross.org',
                             year: '2024',
-                            color: '#ED1B2E'
+                            color: '#EF4444'
                         },
                         {
                             title: 'Youth Mental Health First Aid',
                             institution: 'Mental Health First Aid Team',
                             link: 'https://www.mentalhealthfirstaid.org',
                             year: '2023',
-                            color: '#00A651'
+                            color: '#10B981'
                         },
                         {
                             title: 'Responsive Web Design',
                             institution: 'freeCodeCamp',
                             link: 'https://www.freecodecamp.org',
                             year: '2021',
-                            color: '#0A0A23'
+                            color: '#3B82F6'
                         },
                         {
                             title: 'AWS Certified Cloud Practitioner',
@@ -913,28 +1130,28 @@
                             institution: 'ScrumStudy.com',
                             link: 'https://www.scrumstudy.com',
                             year: '2020',
-                            color: '#009FDA'
+                            color: '#0EA5E9'
                         },
                         {
                             title: 'IPv6 Explorer Certification',
                             institution: 'Hurricane Electric',
                             link: 'https://he.net',
                             year: '2016',
-                            color: '#0066CC'
+                            color: '#3B82F6'
                         },
                         {
                             title: 'Network+ Certification',
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
                             year: '2005',
-                            color: '#C8102E'
+                            color: '#E74C3C'
                         },
                         {
                             title: 'Certified NetWare Administrator (3.x)',
                             institution: 'Novell',
                             link: 'https://www.novell.com',
                             year: '1994',
-                            color: '#EE0000'
+                            color: '#EF4444'
                         }
                     ],
                     projects: [
@@ -1049,6 +1266,7 @@
             mounted() {
                 window.addEventListener('scroll', this.handleScroll);
                 this.observeElements();
+                this.updateActiveSection();
                 setTimeout(() => {
                     this.animatePortfolioItems();
                 }, 300);
@@ -1059,6 +1277,36 @@
             methods: {
                 handleScroll() {
                     this.isScrolled = window.scrollY > 50;
+                    this.showHomeButton = window.scrollY > window.innerHeight;
+                    this.updateActiveSection();
+                },
+                updateActiveSection() {
+                    const sections = ['cover', 'portfolio', 'education', 'projects', 'contact'];
+                    const scrollPosition = window.scrollY + 200;
+                    
+                    for (const sectionId of sections) {
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            const sectionTop = section.offsetTop;
+                            const sectionBottom = sectionTop + section.offsetHeight;
+                            
+                            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                                this.activeSection = sectionId;
+                                break;
+                            }
+                        }
+                    }
+                },
+                toggleDarkMode() {
+                    this.darkMode = !this.darkMode;
+                    if (this.darkMode) {
+                        document.body.classList.remove('light-mode');
+                    } else {
+                        document.body.classList.add('light-mode');
+                    }
+                },
+                scrollToTop() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
                 scrollToSection(sectionId) {
                     const element = document.getElementById(sectionId);
