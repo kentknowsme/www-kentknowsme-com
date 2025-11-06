@@ -21,12 +21,8 @@
         
         body.light-mode {
             --bg-midnight: #f5f5f5;
-            --text-white: #676464;
+            --text-white: #1a1a1a;
             --text-dark: #ffffff;
-        }
-        
-        body.light-mode .navbar.scrolled {
-            background-color: rgba(245, 245, 245, 0.65) !important;
         }
         
         body.light-mode #cover {
@@ -99,7 +95,11 @@
         }
         
         body.light-mode .navbar.scrolled {
-            background-color: rgba(245, 245, 245, 0.95) !important;
+            background-color: rgba(245, 245, 245, 0.55) !important;
+        }
+        
+        body.mono-mode .navbar.scrolled {
+            background-color: rgba(26, 26, 26, 0.95) !important;
         }
         
         .navbar-brand {
@@ -117,7 +117,8 @@
         }
         
         .nav-link.active {
-            color: var(--primary-color) !important;
+            color: var(--primary-sand) !important;
+            font-weight: 700;
         }
         
         .nav-link.active::after {
@@ -127,8 +128,20 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--primary-color);
+            background: var(--primary-sand);
             border-radius: 2px;
+        }
+        
+        body.light-mode .nav-link.active {
+            color: var(--primary-sand) !important;
+        }
+        
+        body.mono-mode .nav-link.active {
+            color: #cccccc !important;
+        }
+        
+        body.mono-mode .nav-link.active::after {
+            background: #cccccc;
         }
         
         .dark-mode-switch {
@@ -148,13 +161,13 @@
         }
         
         .mode-button {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 8px;
             padding: 0.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: var(--text-white);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1.2rem;
             width: 45px;
             height: 45px;
@@ -164,8 +177,14 @@
         }
         
         .mode-button.active {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
+            background: var(--primary-sand);
+            border-color: var(--primary-sand);
+        }
+       
+        body.light-mode .mode-button.active {
+            background: var(--primary-sand);
+            border-color: var(--primary-sand);
+            color: #ffffff;
         }
         
         .mode-button:hover,
@@ -175,6 +194,31 @@
             outline-offset: 2px;
         }
         
+        body.light-mode .mode-button {
+            background: rgba(255,255,255,0.25);
+            color: var(--primary-sand);
+            border-color: rgba(0,0,0,0.3);
+        }
+
+        body.light-mode .mode-button:hover,
+        body.light-mode .mode-button:focus {
+            border-color: var(--accent-sand);
+            outline: 2px solid var(--accent-sand);
+            outline-offset: 2px;
+        }
+
+        body.light-mode .mode-button.active {
+            background: var(--primary-sand);
+            color: var(--text-dark);
+            border-color: var(--primary-sand);
+        }
+
+        body.light-mode .mode-button {
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: background 0.25s ease, color 0.25s ease,
+                        border-color 0.25s ease;
+        }
+
         .mode-labels {
             display: flex;
             gap: 0.5rem;
@@ -184,9 +228,21 @@
         
         .mode-label {
             width: 45px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.4);
         }
         
+        body.light-mode .mode-label {
+            color: #555555;
+            background: rgba(255,255,255,0.25);
+            border-radius: 3px;
+            padding: 2px 4px;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        body.light-mode .mode-labels {
+            gap: 0.5rem;
+        }
+
         .nav-link:hover,
         .nav-link:focus {
             color: var(--accent-sand) !important;
@@ -266,8 +322,8 @@
         }
         
         .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background-color: rgba(212, 165, 116, 0.3);
+            border: 2px solid var(--primary-sand);
             color: var(--text-white);
             padding: 0.75rem 2rem;
             border-radius: 50px;
@@ -277,13 +333,35 @@
         
         .btn-primary:hover,
         .btn-primary:focus {
-            background-color: var(--accent-sand);
-            border-color: var(--accent-sand);
-            color: var(--text-dark);
+            background-color: rgba(212, 165, 116, 0.5);
+            border: 2px solid var(--primary-sand);
+            box-shadow: 0 0 0 2px var(--bg-midnight), 0 0 0 4px var(--primary-sand);
+            color: var(--text-white);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(212, 165, 116, 0.3);
-            outline: 3px solid var(--accent-sand);
-            outline-offset: 2px;
+            outline: none;
+        }
+        
+        body.light-mode .btn-primary {
+            background-color: rgba(184, 144, 95, 0.3);
+            border-color: var(--primary-sand);
+            color: var(--text-white);
+        }
+        
+        body.light-mode .btn-primary:hover,
+        body.light-mode .btn-primary:focus {
+            background-color: rgba(184, 144, 95, 0.5);
+            box-shadow: 0 0 0 2px var(--bg-midnight), 0 0 0 4px var(--primary-sand);
+        }
+        
+        body.mono-mode .btn-primary {
+            background-color: rgba(170, 170, 170, 0.3);
+            border-color: #aaaaaa;
+        }
+        
+        body.mono-mode .btn-primary:hover,
+        body.mono-mode .btn-primary:focus {
+            background-color: rgba(170, 170, 170, 0.5);
+            box-shadow: 0 0 0 2px var(--bg-midnight), 0 0 0 4px #aaaaaa;
         }
         
         section {
@@ -305,19 +383,19 @@
         }
         
         #cover.default-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1759357799192-cf50501c26d2?w=1920&q=80');
         }
         
         #cover.writer-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1920&q=80');
-        }
-        
-        #cover.consultant-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1496152658208-d41635783718?w=1920&q=80');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1587243021731-68262ad6dda0?w=1920&q=80');
         }
         
         #cover.developer-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1920&q=80');
+             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1603706127883-c27fbeef19a2?w=1920&q=80');
+        }
+
+        #cover.consultant-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80');
         }
         
         #cover::before {
@@ -339,7 +417,6 @@
             margin-bottom: 0;
             font-weight: bold;
             color: #ffffff;
-            flex: 1;
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -371,11 +448,14 @@
             color: var(--primary-color);
             transform: translateY(-2px);
         }
-        
-        #cover .btn-primary {
-            margin-bottom: 4rem;
+
+        body.light-mode .work-button {
+            color: #555555;
+            background: rgba(255,255,255,0.25);
+            color: var(--text-white);
+            transition: all 0.3s ease;
         }
-        
+
         .section-title {
             font-size: 2.5rem;
             margin-bottom: 3rem;
@@ -539,6 +619,15 @@
             border: 2px solid rgba(150, 150, 150, 0.4);
         }
         
+        .project-date {
+            color: #6c757d;
+        }
+
+        body.dark-mode .project-date,
+        body.mono-mode .project-date {
+            transition: color 0.3s ease;
+            color: rgba(255,255,255,0.85);
+        }
         .timeline-card-image {
             width: 100%;
             height: 300px;
@@ -671,10 +760,14 @@
         
         .education-item .description {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.4);
             font-style: italic;
         }
         
+        body.light-mode .education-item .description {
+            color: rgba(30, 30, 30, 0.7);
+        }
+
         .education-item a {
             color: var(--text-white);
             text-decoration: none;
@@ -826,6 +919,19 @@
                 font-size: 20px;
             }
         }
+        #cover .content {
+            position: relative;
+        }
+        .work-para {
+            margin-top: 25vh;
+            text-align: center;
+        }
+
+        @media (max-width: 500px) {
+            .work-para {
+                margin-top: 15vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -877,8 +983,8 @@
                     <span>|</span>
                     <span class="hover-word" @mouseenter="setHeroBg('consultant')" @mouseleave="setHeroBg('default')">Consultant</span>
                 </h1>
-                <p>
-                    <button class="btn btn-primary" @click="scrollToSection('portfolio')" aria-label="View my portfolio">
+                <p class="work-para">
+                    <button class="btn btn-primary work-button" @click="scrollToSection('portfolio')" aria-label="View my portfolio">
                         View My Work <i class="fa fa-arrow-down ms-2" aria-hidden="true"></i>
                     </button>
                 </p>
@@ -954,7 +1060,7 @@
                                     <p class="mb-2" v-if="project.company">
                                         <a :href="project.link" target="_blank" rel="noopener noreferrer" :aria-label="'Visit ' + project.company + ' website'">{{ project.company }}</a>
                                     </p>
-                                    <p class="text-muted mb-2" v-if="project.dates">{{ project.dates }}</p>
+                                    <p class="project-date mb-2" v-if="project.dates">{{ project.dates }}</p>
                                     <p>{{ project.description }}</p>
                                 </div>
                             </article>
@@ -1178,6 +1284,7 @@
                             institution: 'Collins College',
                             link: 'https://www.collinscollege.edu',
                             year: '2002',
+                            details: 'Certified in Adobe Photoshop and Illustrator on MacOS',
                             color: '#5B9BD5'
                         },
                         {
@@ -1185,7 +1292,7 @@
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
                             year: 'October 2025',
-                            details: 'Currently studying for Core 2 exam',
+                            details: 'Computer hardware basic knowledge. Currently studying for Core 2 exam (computer software)',
                             color: '#E74C3C'
                         },
                         {
@@ -1200,6 +1307,7 @@
                             institution: 'American Red Cross',
                             link: 'https://www.redcross.org',
                             year: '2024',
+                            details: 'Certified in Adult and Pediatric First Aid, CPR, and AED through American Red Cross.',
                             color: '#EF4444'
                         },
                         {
@@ -1231,6 +1339,13 @@
                             color: '#0EA5E9'
                         },
                         {
+                            title: 'IPv6 Enthusiast Certification',
+                            institution: 'Hurricane Electric',
+                            link: 'https://he.net',
+                            year: '2025',
+                            color: '#3B82F6'
+                        },
+                        {
                             title: 'IPv6 Explorer Certification',
                             institution: 'Hurricane Electric',
                             link: 'https://he.net',
@@ -1253,7 +1368,7 @@
                         }
                     ],
                     projects: [
-                                {
+                        {
                             title: 'IT Service Desk Support',
                             role: 'IT Service Desk Technician I',
                             company: 'Western Governors University',
@@ -1268,7 +1383,7 @@
                             company: 'English Skills Learning Center',
                             link: 'https://www.eslcenter.org',
                             dates: 'Jan 2024 - Sep 2024',
-                            description: 'Designed and delivered comprehensive Digital Literacy curriculum for adult Emergent Reader learners. Taught over 120 students daily and planned, installed, configured, and maintained first computer lab with over 30 laptops.',
+                            description: 'Designed and delivered comprehensive Digital Literacy curriculum for adult Emergent Reader learners. Taught over 120 students daily. Planned, installed, configured, and maintained first computer lab with over 30 laptops.',
                             image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1300&h=600&fit=crop&q=80'
                         },
                         {
@@ -1346,7 +1461,7 @@
                         {
                             title: 'IT Hotel Operations Management',
                             role: 'IT Manager',
-                            company: 'Starwood Hotels - St Regis and Century Plaza',
+                            company: 'Marriott Hotels - St Regis and Century Plaza',
                             link: 'https://www.marriott.com',
                             dates: 'May 2003 - Jul 2004',
                             description: 'Managed Server/Client, internet, telecomm and Retail POS technologies on 24x7x365 basis for large convention and luxury hotel. Maintained infrastructure supporting over 300 staff, 1100 guest rooms, multiple restaurants, and 100k sq ft convention space.',
@@ -1426,10 +1541,10 @@
                 },
                 preloadImages() {
                     const images = [
-                        'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80',
-                        'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1920&q=80',
-                        'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80',
-                        'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1920&q=80'
+                        'https://images.unsplash.com/photo-1759357799192-cf50501c26d2?w=1920&q=80',
+                        'https://images.unsplash.com/photo-1603706127883-c27fbeef19a2?w=1920&q=80',
+                        'https://images.unsplash.com/photo-1587243021731-68262ad6dda0?w=1920&q=80',
+                        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80'
                     ];
                     images.forEach(src => {
                         const img = new Image();
