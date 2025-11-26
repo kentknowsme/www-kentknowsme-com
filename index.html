@@ -9,847 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=merriweather:400,700" rel="stylesheet">
-    <style>
-        :root {
-            --primary-sand: #D4A574;
-            --secondary-sage: #7A9B76;
-            --accent-terracotta: #C67B5C;
-            --bg-midnight: #0f1923;
-            --text-white: #ffffff;
-            --text-dark: #1a1a1a;
-        }
-        
-        body.light-mode {
-            --bg-midnight: #f5f5f5;
-            --text-white: #1a1a1a;
-            --text-dark: #ffffff;
-        }
-        
-        body.light-mode #cover {
-            filter: brightness(1.3) contrast(0.9);
-        }
-        
-        body.mono-mode {
-            --primary-sand: #888888;
-            --accent-terracotta: #aaaaaa;
-            --bg-midnight: #1a1a1a;
-            --text-white: #ffffff;
-            --text-dark: #1a1a1a;
-        }
-        
-        body.mono-mode * {
-            filter: grayscale(100%);
-        }
-        
-        body.mono-mode .navbar {
-            filter: none;
-            background-color: rgba(26, 26, 26, 0.35) !important;
-        }
-        
-        body.mono-mode .navbar.scrolled {
-            background-color: rgba(26, 26, 26, 0.65) !important;
-        }
-        
-        body.mono-mode .portfolio-item,
-        body.mono-mode .timeline-card,
-        body.mono-mode .education-item {
-            background: rgba(80, 80, 80, 0.7);
-            border-color: rgba(120, 120, 120, 0.5);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Merriweather', serif;
-            color: var(--text-white);
-            background-color: var(--bg-midnight);
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--primary-sand);
-            color: var(--text-dark);
-            padding: 8px;
-            text-decoration: none;
-            z-index: 100;
-        }
-        
-        .skip-link:focus {
-            top: 0;
-        }
-        
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-            padding: 1rem 0;
-            background-color: rgba(15, 25, 35, 0.15) !important;
-            backdrop-filter: blur(5px);
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(15, 25, 35, 0.65) !important;
-            backdrop-filter: blur(10px);
-        }
-        
-        body.light-mode .navbar {
-            background-color: rgba(245, 245, 245, 0.15) !important;
-        }
-        
-        body.light-mode .navbar.scrolled {
-            background-color: rgba(245, 245, 245, 0.65) !important;
-        }
-        
-        .navbar-brand {
-            color: var(--text-white) !important;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .nav-link {
-            color: var(--text-white) !important;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .nav-link.active {
-            color: var(--primary-sand) !important;
-            font-weight: 700;
-        }
-        
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary-sand);
-            border-radius: 2px;
-        }
-        
-        body.mono-mode .nav-link.active {
-            color: #cccccc !important;
-        }
-        
-        body.mono-mode .nav-link.active::after {
-            background: #cccccc;
-        }
-        
-        .dark-mode-switch {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            margin-left: 2rem;
-            padding-left: 2rem;
-            border-left: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .mode-selector {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .mode-button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid var(--primary-sand);
-            border-radius: 8px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .mode-button.active {
-            background: var(--primary-sand);
-            border-color: var(--primary-sand);
-        }
-        
-        .mode-button:hover,
-        .mode-button:focus {
-            border-color: var(--accent-terracotta);
-            outline: 2px solid var(--accent-terracotta);
-            outline-offset: 2px;
-        }
-        
-        body.light-mode .mode-button {
-            background: rgba(255,255,255,0.25);
-            color: var(--primary-sand);
-        }
-        
-        body.light-mode .mode-button.active {
-            background: var(--primary-sand);
-            color: var(--text-dark);
-            border-color: var(--primary-sand);
-        }
-        
-        .mode-labels {
-            display: flex;
-            gap: 0.5rem;
-            font-size: 0.7rem;
-            text-align: center;
-        }
-        
-        .mode-label {
-            width: 45px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        body.light-mode .mode-label {
-            color: #555555;
-            border-radius: 3px;
-            padding: 2px 4px;
-        }
-        
-        .nav-link:hover,
-        .nav-link:focus {
-            color: var(--accent-terracotta) !important;
-            outline: 2px solid var(--accent-terracotta);
-            outline-offset: 4px;
-        }
-        
-        .home-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 999;
-            background: var(--primary-sand);
-            color: var(--text-dark);
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .home-button.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .home-button:hover,
-        .home-button:focus {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-            outline: 3px solid var(--secondary-sage);
-            outline-offset: 2px;
-        }
-        
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid var(--primary-sand);
-            color: var(--text-white);
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-        
-        .btn-primary:hover,
-        .btn-primary:focus {
-            background-color: rgba(212, 165, 116, 0.5);
-            border: 2px solid var(--primary-sand);
-            box-shadow: 0 0 0 2px var(--bg-midnight), 0 0 0 4px var(--primary-sand);
-            color: var(--text-white);
-            transform: translateY(-2px);
-            outline: none;
-        }
-        
-        body.light-mode .btn-primary {
-            background: rgba(255,255,255,0.45);
-        }
-        
-        body.light-mode .btn-primary:hover,
-        body.light-mode .btn-primary:focus {
-            background-color: rgba(184, 144, 95, 0.5);
-        }
-        
-        body.mono-mode .btn-primary {
-            background-color: rgba(170, 170, 170, 0.3);
-            border-color: #aaaaaa;
-        }
-        
-        body.mono-mode .btn-primary:hover,
-        body.mono-mode .btn-primary:focus {
-            background-color: rgba(170, 170, 170, 0.5);
-            box-shadow: 0 0 0 2px var(--bg-midnight), 0 0 0 4px #aaaaaa;
-        }
-        
-        section {
-            min-height: 100vh;
-            padding: 6rem 0 4rem;
-            position: relative;
-            background-color: var(--bg-midnight);
-        }
-        
-        #cover {
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            transition: background-image 0.6s ease-in-out;
-            padding-top: 0;
-        }
-        
-        #cover.default-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1759357799192-cf50501c26d2?w=1920&q=80');
-        }
-        
-        #cover.writer-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1587243021731-68262ad6dda0?w=1920&q=80');
-        }
-        
-        #cover.developer-bg {
-             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1603706127883-c27fbeef19a2?w=1920&q=80');
-        }
-
-        #cover.consultant-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80');
-        }
-        
-        #cover .content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        
-        #cover h1 {
-            font-size: 4rem;
-            margin-bottom: 0;
-            font-weight: bold;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        #cover h1 .hover-word {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            display: inline-block;
-        }
-        
-        #cover h1 .hover-word::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: var(--primary-sand);
-            transition: width 0.3s ease;
-        }
-        
-        #cover h1 .hover-word:hover::after {
-            width: 100%;
-        }
-        
-        #cover h1 .hover-word:hover {
-            color: var(--primary-sand);
-            transform: translateY(-2px);
-        }
-        
-        .work-para {
-            margin-top: 25vh;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: var(--primary-sand);
-            font-weight: bold;
-        }
-        
-        .portfolio-circle {
-            position: relative;
-            width: 800px;
-            height: 800px;
-            margin: 0 auto;
-        }
-        
-        .portfolio-item {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(15, 25, 35, 0.7);
-            border: 2px solid rgba(212, 165, 116, 0.3);
-            border-radius: 10px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        
-        body.light-mode .portfolio-item {
-            background: rgba(200, 200, 200, 0.7);
-            border: 2px solid rgba(150, 150, 150, 0.4);
-        }
-        
-        .portfolio-item.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .portfolio-item:hover,
-        .portfolio-item:focus {
-            background: rgba(212, 165, 116, 0.2);
-            transform: scale(1.05);
-            outline: 3px solid var(--accent-terracotta);
-            outline-offset: 4px;
-        }
-        
-        .portfolio-item h4 {
-            color: var(--primary-sand);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-        
-        .portfolio-item p {
-            font-size: 0.75rem;
-            margin: 0;
-        }
-        
-        .modal-content {
-            background-color: var(--bg-midnight);
-            color: var(--text-white);
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
-        }
-        
-        .modal-footer {
-            border-top: 1px solid rgba(212, 165, 116, 0.2);
-        }
-        
-        .btn-close {
-            filter: invert(1);
-        }
-        
-        body.light-mode .btn-close {
-            filter: invert(0);
-        }
-        
-        .btn-close:focus {
-            outline: 3px solid var(--primary-sand);
-            outline-offset: 2px;
-        }
-        
-        .gallery-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .gallery-label {
-            font-weight: 600;
-            color: var(--primary-sand);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .gallery-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-img:hover,
-        .gallery-img:focus {
-            transform: scale(1.05);
-            outline: 3px solid var(--accent-terracotta);
-            outline-offset: 4px;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--primary-sand);
-            transform: translateX(-50%);
-        }
-        
-        .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .timeline-card {
-            background: rgba(15, 25, 35, 0.7);
-            border: 2px solid rgba(212, 165, 116, 0.3);
-            border-radius: 10px;
-            padding: 0;
-            width: 45%;
-            position: relative;
-            overflow: visible;
-        }
-        
-        body.light-mode .timeline-card {
-            background: rgba(200, 200, 200, 0.7);
-            border: 2px solid rgba(150, 150, 150, 0.4);
-        }
-        
-        .project-date {
-            color: #6c757d;
-        }
-
-        body.dark-mode .project-date,
-        body.mono-mode .project-date {
-            color: rgba(255,255,255,0.85);
-        }
-        
-        .timeline-card-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .timeline-card-content {
-            padding: 2rem;
-        }
-        
-        .timeline-card:hover,
-        .timeline-card:focus-within {
-            background: rgba(212, 165, 116, 0.15);
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-card {
-            margin-left: auto;
-        }
-        
-        .timeline-card::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background-color: var(--primary-sand);
-            top: 150px;
-            border-radius: 50%;
-            z-index: 10;
-            border: 4px solid var(--primary-sand);
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-card::after {
-            left: -63px;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-card::after {
-            right: -63px;
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-card::before {
-            content: "";
-            position: absolute;
-            top: 20px;
-            left: 0;
-            border: medium solid;
-            border-width: 12px 0 12px 15px;
-            border-color: transparent transparent transparent rgba(212, 165, 116, 0.3);
-            z-index: 1;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-card::before {
-            content: "";
-            position: absolute;
-            top: 20px;
-            right: 0;
-            border: medium solid;
-            border-width: 12px 15px 12px 0;
-            border-color: transparent rgba(212, 165, 116, 0.3) transparent transparent;
-            z-index: 1;
-        }
-        
-        .timeline-card a {
-            color: var(--primary-sand);
-            text-decoration: underline;
-        }
-        
-        .timeline-card a:hover,
-        .timeline-card a:focus {
-            color: var(--accent-terracotta);
-            outline: 2px solid var(--accent-terracotta);
-            outline-offset: 2px;
-        }
-        
-        .education-item {
-            background: rgba(15, 25, 35, 0.7);
-            border: 2px solid rgba(212, 165, 116, 0.3);
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            max-width: 7in;
-            min-height: 1.2in;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.6s ease;
-        }
-        
-        body.light-mode .education-item {
-            background: rgba(200, 200, 200, 0.7);
-            border: 2px solid rgba(150, 150, 150, 0.4);
-        }
-        
-        .education-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .education-item:hover,
-        .education-item:focus-within {
-            background: rgba(212, 165, 116, 0.15);
-        }
-        
-        .education-item .cert-icon {
-            flex-shrink: 0;
-        }
-        
-        .education-item .content {
-            flex: 1;
-            min-width: 0;
-            line-height: 1.4;
-        }
-        
-        .education-item h4 {
-            color: var(--primary-sand);
-            margin: 0 0 0.25rem 0;
-            font-size: 0.95rem;
-        }
-        
-        .education-item p {
-            margin: 0 0 0.25rem 0;
-            font-size: 0.85rem;
-        }
-        
-        .education-item .description {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
-        }
-        
-        body.light-mode .education-item .description {
-            color: rgba(30, 30, 30, 0.7);
-        }
-
-        .education-item a {
-            color: var(--text-white);
-            text-decoration: none;
-        }
-        
-        .education-item a:hover,
-        .education-item a:focus {
-            color: var(--accent-terracotta);
-            text-decoration: underline;
-            outline: 2px solid var(--accent-terracotta);
-            outline-offset: 2px;
-        }
-        
-        .contact-form .form-control,
-        .contact-form .form-control:focus {
-            background: #f5f5f5;
-            border: 2px solid rgba(212, 165, 116, 0.5);
-            color: #000000;
-            font-weight: 500;
-        }
-        
-        .contact-form .form-control:focus {
-            box-shadow: 0 0 0 0.2rem rgba(212, 165, 116, 0.25);
-            outline: 3px solid var(--primary-sand);
-            outline-offset: 2px;
-        }
-        
-        .contact-form .form-control::placeholder {
-            color: #666666;
-        }
-        
-        .contact-form label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        footer {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 3rem 0 1rem;
-            text-align: center;
-        }
-        
-        body.light-mode footer {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        
-        .social-links a {
-            color: var(--text-white);
-            font-size: 2rem;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-            display: inline-block;
-        }
-        
-        .social-links a:hover,
-        .social-links a:focus {
-            color: var(--accent-terracotta);
-            outline: 3px solid var(--accent-terracotta);
-            outline-offset: 4px;
-        }
-        
-        footer a {
-            color: var(--primary-sand);
-            text-decoration: none;
-        }
-        
-        footer a:hover,
-        footer a:focus {
-            text-decoration: underline;
-            outline: 2px solid var(--accent-terracotta);
-            outline-offset: 2px;
-        }
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        @media (max-width: 992px) {
-            .portfolio-circle {
-                width: 100%;
-                height: auto;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .portfolio-item {
-                position: static !important;
-                width: 100%;
-                height: auto;
-                min-height: 200px;
-            }
-            
-            .education-item {
-                max-width: 100%;
-                min-height: auto;
-                padding: 1rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            #cover h1 {
-                font-size: 2.5rem;
-            }
-            
-            .portfolio-circle {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline::before {
-                left: 0;
-            }
-            
-            .timeline-card {
-                width: 100%;
-                margin-left: 2rem !important;
-            }
-            
-            .timeline-item:nth-child(odd) .timeline-card::after,
-            .timeline-item:nth-child(even) .timeline-card::after {
-                left: -38px;
-                top: 150px;
-            }
-            
-            .timeline-item:nth-child(odd) .timeline-card::before,
-            .timeline-item:nth-child(even) .timeline-card::before {
-                left: 0;
-                border-width: 12px 0 12px 15px;
-                border-color: transparent transparent transparent rgba(212, 165, 116, 0.3);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .work-para {
-                margin-top: 15vh;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./portfolio.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <div id="app">
+        <!-- Header navbar with menu items and mode buttons -->
         <nav class="navbar navbar-expand-lg" :class="{ scrolled: isScrolled }" role="navigation" aria-label="Main navigation">
             <div class="container">
                 <a class="navbar-brand" href="#cover">Kent Schaeffer</a>
@@ -886,6 +52,7 @@
             </div>
         </nav>
 
+        <!-- Hero cover page -->
         <section id="cover" aria-labelledby="hero-heading" :class="heroBgClass">
             <div class="content">
                 <h1 id="hero-heading">
@@ -903,15 +70,16 @@
             </div>
         </section>
 
+        <!-- Portfolio Items in a Circle -->
         <main id="main-content">
             <section id="portfolio" aria-labelledby="portfolio-heading">
                 <div class="container">
                     <h2 id="portfolio-heading" class="section-title">Portfolio & Examples</h2>
                     <div class="portfolio-circle" role="list" aria-label="Portfolio items">
                         <div class="portfolio-item" 
-                             v-for="(item, index) in portfolioItems" 
+                             v-for="(item, index) in sortedPortfolioItems" 
                              :key="item.id"
-                             :style="getCirclePosition(index, portfolioItems.length)"
+                             :style="getCirclePosition(index, sortedPortfolioItems.length)"
                              :class="{ visible: item.visible }"
                              @click="openGallery(item)"
                              @keypress.enter="openGallery(item)"
@@ -930,12 +98,13 @@
                 </div>
             </section>
 
+            <!-- Education Items in reverse chrono order -->
             <section id="education" aria-labelledby="education-heading">
                 <div class="container">
                     <h2 id="education-heading" class="section-title">Education & Certifications</h2>
                     <div class="row">
                         <div class="col-lg-10 mx-auto">
-                            <div class="education-item" v-for="(item, index) in educationItems" :key="index" role="article">
+                            <div class="education-item" v-for="(item, index) in sortedEducationItems" :key="index" role="article">
                                 <div class="cert-icon" aria-hidden="true">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" :fill="item.color" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"></path>
@@ -959,6 +128,7 @@
                 </div>
             </section>
 
+            <!-- Projects on a timeline -->
             <section id="projects" aria-labelledby="projects-heading">
                 <div class="container">
                     <h2 id="projects-heading" class="section-title">Project Experience</h2>
@@ -986,6 +156,7 @@
                 </div>
             </section>
 
+            <!-- Contact form -->
             <section id="contact" aria-labelledby="contact-heading">
                 <div class="container">
                     <h2 id="contact-heading" class="section-title">Get In Touch</h2>
@@ -1008,7 +179,7 @@
                                     <label for="message">Message</label>
                                     <textarea id="message" class="form-control" v-model="form.message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center mb-5">
                                     <button type="submit" class="btn btn-primary" :disabled="submitting" :aria-busy="submitting">
                                         <span v-if="!submitting">Send Message</span>
                                         <span v-else>Sending...</span>
@@ -1024,17 +195,20 @@
             </section>
         </main>
 
+        <!-- Footer and contact methods -->
         <footer role="contentinfo">
             <div class="container">
                 <nav aria-label="Social media links">
                     <div class="social-links mb-4">
                         <a href="https://linkedin.com/in/kentmschaeffer" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="https://kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Personal website"><i class="fa fa-globe" aria-hidden="true"></i></a>
-                        <a href="https://docs.kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Documentation website"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                        <a href="https://kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Personal portfolio website"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                        <a href="https://docs.kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Personal documentation website"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                        <a href="https://blog.kentknowsme.com" target="_blank" rel="noopener noreferrer" aria-label="Personal blog website"><i class="fa fa-rss" aria-hidden="true"></i></a>
                         <a href="https://github.com/kentknowsme" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><i class="fa fa-github" aria-hidden="true"></i></a>
+                        <a href="https://gitlab.com/kentknowsme" target="_blank" rel="noopener noreferrer" aria-label="GitLab profile"><i class="fa fa-gitlab" aria-hidden="true"></i></a>
                     </div>
                 </nav>
-                <p>Photos by <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
+                <p>Photos by various artists on <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
                 <p>&copy; {{ currentYear }} <a href="https://kentknowsme.com" target="_blank" rel="noopener noreferrer">Kent Schaeffer</a>. All rights reserved.</p>
             </div>
         </footer>
@@ -1042,22 +216,30 @@
         <button class="home-button" :class="{ visible: showHomeButton }" @click="scrollToTop" aria-label="Scroll to top">
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
         </button>
-
+        <!-- Portfolio Dual-Image Gallery Modal -->
         <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="galleryModalLabel">{{ currentGallery.title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{ currentGallery.details }}</p>
-                        <div class="row mt-4">
-                            <div class="col-md-6 gallery-item" v-for="(img, index) in currentGallery.images" :key="index">
-                                <div class="gallery-label">{{ currentGallery.imageLabels[index] }}</div>
-                                <img :src="img" class="gallery-img" :alt="currentGallery.imageLabels[index]" tabindex="0">
-                            </div>
+                    <div v-if="currentGallery" class="modal-window">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ currentGallery.title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close gallery"></button>
                         </div>
+                        <div class="modal-body">
+                            <p>{{ currentGallery.details }}</p>
+                            <div class="row mt-4">                                
+                                    <div class="col-md-6 gallery-item" v-for="(img, idx) in currentGallery.images" :key="idx">
+                                        <h5 class="gallery-text" style="margin-top: 1rem; text-align: center;">
+                                            <a v-if="img.href" :href="img.href" target="_blank" rel="noopener noreferrer" aria-label="{{ img.text}}">{{ img.text }}</a>
+                                            <span v-else>{{ img.text }}</span>
+                                        </h5>
+                                        <a v-if="img.href" :href="img.href" target="_blank" rel="noopener noreferrer" aria-label="{{ img.text}}">
+                                            <img class="gallery-image" :src="img.src" :alt="img.text" />
+                                        </a>
+                                        <img v-else class="gallery-image" :src="img.src" :alt="img.text" />
+                                    </div>
+                            </div>
+                            
                     </div>
                 </div>
             </div>
@@ -1092,46 +274,91 @@
                             id: 1,
                             title: 'DDI Consulting',
                             description: 'DNS, DHCP, IPAM expertise with Infoblox, BIND, and QIP',
-                            details: 'Over 20 years of experience in DDI infrastructure including DNS BIND configuration, Infoblox DDI platforms, QIP environments, DNSSEC implementation, and enterprise-scale IPAM management.',
-                            images: [
-                                'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
-                                'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800'
+                            details: 'Over 10 years of experience in DDI infrastructure including DNS BIND configuration, Infoblox DDI platforms, QIP environments, automations, and enterprise-scale IPAM management.',
+                            links: [
+                                { text: 'Infoblox DDI Solutions', url: 'https://docs.kentknows.com/network-diagrams/ddi-infrastructure' },
+                                { text: 'BIND DNS Zone Configuration', url: 'https://docs.kentknows.com/dns/dns-zone-configuration' }
                             ],
-                            imageLabels: ['Network Infrastructure Diagram', 'DNS Zone Configuration'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800', 
+                                    text: 'Infoblox DDI Solutions',
+                                    href: 'https://docs.kentknows.com/services#ddi-consulting'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800',
+                                    text: 'BIND DNS Zone Configuration',
+                                    href: 'https://docs.kentknows.com/services#dns-bind-automation'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 2,
                             title: 'Basic Websites',
                             description: 'Responsive, modern websites with HTML5, CSS3, JavaScript',
-                            details: 'Professional website development using modern web technologies including Vue.js, Bootstrap, and responsive design principles. Focus on accessibility, performance, and user experience.',
-                            images: [
-                                'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
-                                'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800'
+                            details: 'Professional website development using modern web technologies including Vue.js, Bootstrap, and Astro with Starlight. Focus on accessibility, performance, and user experience.',
+                            links: [
+                                { text: 'Personal Portfolio', url: 'https://dev.kentknowsme.com/html/vue-html-portfolio.html' },
+                                { text: 'Document Repository', url: 'https://docs.kentknowsme.com/' }
                             ],
-                            imageLabels: ['Website Analytics Dashboard', 'Modern Web Development'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800', 
+                                    text: 'Personal Portfolio Website',
+                                    href: 'https://docs.kentknows.com/services#web-development'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800',
+                                    text: 'Document Repository Website',
+                                    href: 'https://docs.kentknows.com/services#documentation-sites'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 3,
                             title: 'Technical Documentation',
-                            description: 'Comprehensive technical docs and user guides',
-                            details: 'Expert technical writing for system administrators, developers, and end users. View examples at docs.kentknows.com',
-                            images: [
-                                'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
-                                'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800'
+                            description: 'Comprehensive technical documentation artifacts',
+                            details: 'Expert technical writing for system administrators, developers, managers, and end users',
+                            links: [
+                                { text: 'Technical Documentation Site', url: 'https://docs.kentknowsme.com/' },
+                                { text: 'System Architecture Documentation', url: 'https://docs.kentknowsme.com/systems/' }
                             ],
-                            imageLabels: ['Technical Documentation Example', 'System Architecture Documentation'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800', 
+                                    text: 'Technical Documentation Website',
+                                    href: 'https://docs.kentknows.com/services#technical-writing'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800',
+                                    text: 'System Architecture Documentation',
+                                    href: 'https://docs.kentknows.com/services#system-architecture'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 4,
                             title: 'Website Hosting',
-                            description: 'GitHub Pages, Cloudflare, CI/CD pipelines',
-                            details: 'Experience with modern deployment workflows including GitHub Actions, Cloudflare Workers, and automated testing pipelines.',
+                            description: 'GitHub Pages, Cloudflare, CI/CD pipelines, Heroku, AWS, GCP, Azure',
+                            details: 'Experience with modern deployment workflows including GitHub Actions, Cloudflare Workers, and automated pipelines.',
+                            links: [
+                                { text: 'Cloud Hosting', url: 'https://docs.kentknowsme.com/hosting/services' },
+                                { text: 'CI/CD Pipleline Configuration', url: 'https://docs.kentknowsme.com/web/pipelines' }
+                            ],
                             images: [
-                                'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800',
-                                'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800'
+                                {
+                                    src: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800', 
+                                    text: 'Cloud Hosting Solutions',
+                                    href: 'https://docs.kentknows.com/services#cloud-hosting'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800',
+                                    text: 'CI/CD Pipeline Configuration',
+                                    href: 'https://docs.kentknows.com/services#ci-cd-pipelines'
+                                }
                             ],
                             imageLabels: ['Cloud Infrastructure Dashboard', 'CI/CD Pipeline Configuration'],
                             visible: false
@@ -1141,58 +368,102 @@
                             title: 'Network Diagrams',
                             description: 'DNS topology, DHCP scopes, network architecture',
                             details: 'Professional network documentation including DNS zone hierarchies, DHCP scope designs, IPAM planning, and infrastructure diagrams using Visio and OmniGraffle.',
-                            images: [
-                                'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
-                                'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800'
+                            links: [
+                                { text: 'Network Function Diagram', url: 'https://docs.kentknows.com/diagrams/ddi-infrastructure' },
+                                { text: 'Workflow Process Diagram', url: 'https://docs.kentknows.com/diagrams/dns-zone-configuration' }
                             ],
-                            imageLabels: ['Network Topology Diagram', 'Infrastructure Architecture'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800', 
+                                    text: 'Network Infrastructure Diagram',
+                                    href: 'https://docs.kentknows.com/services#network-diagrams'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800',
+                                    text: 'DNS Zone Configuration',
+                                    href: 'https://docs.kentknows.com/services#workflow-diagrams'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 6,
                             title: 'Linux Scripting',
                             description: 'Bash, shell, korn, zsh, and Perl automation',
-                            details: 'Extensive experience automating system administration tasks, DNS updates, log parsing, and infrastructure management across RHEL, CentOS, and Unix environments.',
-                            images: [
-                                'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800',
-                                'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800'
+                            details: 'Extensive experience automating system administration tasks, DNS updates, log parsing, and infrastructure management across RHEL, CentOS, and various Unix environments.',
+                            links: [
+                                { text: 'Password Manager Perl Module', url: 'https://github.com/kentknowsme/tools-kentknows-com/shell/Passman/' },
+                                { text: 'DNS Record Validation Tool', url: 'https://github.co,/kentknowsme/tools-kentknows-com/shell/dns-record-validation' }
                             ],
-                            imageLabels: ['Terminal Automation Script', 'Linux System Configuration'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800', 
+                                    text: 'Perl Module Development',
+                                    href: 'https://docs.kentknows.com/services#perl-scripting'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800',
+                                    text: 'DDI Automation Scripts',
+                                    href: 'https://docs.kentknows.com/services#ddi-automation'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 7,
                             title: 'Linux/Unix Admin',
-                            description: 'System configuration, DNS BIND, monitoring',
+                            description: 'System configurations for network services and infrastructure',
                             details: 'Over 20 years managing Linux/Unix infrastructure including DNS BIND configuration, zone file management, Infoblox DDI platforms, and system automation.',
-                            images: [
-                                'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800',
-                                'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800'
+                            links: [
+                                { text: 'Grafana Monitoring Dashboard', url: 'https://grafana.com/' },
+                                { text: 'Unix System Administration', url: 'https://github.co,/kentknowsme/tools-kentknows-com/shell/dns-record-validation' }
                             ],
-                            imageLabels: ['Server Monitoring Dashboard', 'Unix System Administration'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800', 
+                                    text: 'InfluxDB and Grafana Monitoring',
+                                    href: 'https://docs.kentknows.com/services#system-monitoring'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
+                                    text: 'Unix System Administration',
+                                    href: 'https://docs.kentknows.com/services#system-administration'
+                                }
+                            ],
                             visible: false
                         },
                         {
                             id: 8,
                             title: 'Application Development',
-                            description: 'JavaScript and Perl backend services',
+                            description: 'JavaScript and Perl development services',
                             details: 'Full-stack development using Node.js, Perl, RESTful APIs, and database integration for web applications and automation tools.',
-                            images: [
-                                'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800',
-                                'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800'
+                            links: [
+                                { text: 'Full-Stack Application Code', url: 'https://dev.kentknowsme.com/samples/FullStackApp/' },
+                                { text: 'Backend API Development', url: 'https://docs.kentknowsme.com/web/api-interfacde' }
                             ],
-                            imageLabels: ['Backend API Development', 'Full-Stack Application Code'],
+                            images: [
+                                {
+                                    src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800', 
+                                    text: 'Full-Stack Application Code',
+                                    href: 'https://docs.kentknows.com/services#full-stack-development'
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800',
+                                    text: 'Backend API Development',
+                                    href: 'https://docs.kentknows.com/services#api-development'
+                                }
+                            ],
                             visible: false
                         }
                     ],
                     educationItems: [
                         {
-                            title: 'Bachelor of Science - Computer Science and Information Systems',
+                            title: 'Bachelor of Science degree',
                             institution: 'Brigham Young University-Hawaii',
                             link: 'https://www.byuh.edu',
                             year: '1996',
-                            details: 'Minor: Business Management',
-                            color: '#4A90E2'
+                            details: 'Major: Computer Science and Information Systems | Minor: Business Management',
+                            color: '#BA0C2F'
                         },
                         {
                             title: 'Computer Graphics Certificate Program',
@@ -1200,50 +471,54 @@
                             link: 'https://www.collinscollege.edu',
                             year: '2002',
                             details: 'Certified in Adobe Photoshop and Illustrator on MacOS',
-                            color: '#5B9BD5'
+                            color: '#0033A0'
                         },
                         {
                             title: 'CompTIA A+ Core 1',
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
                             year: 'October 2025',
-                            details: 'Computer hardware basic knowledge. Currently studying for Core 2 exam (computer software)',
-                            color: '#E74C3C'
+                            details: 'Computer hardware basics | studying for Core 2 exam (software)',
+                            color: '#FF6600'
                         },
                         {
                             title: 'JavaScript Algorithms and Data Structures',
                             institution: 'freeCodeCamp',
-                            link: 'https://www.freecodecamp.org',
+                            link: 'https://www.freecodecamp.org/ne0crank',
                             year: '2024 & 2022',
-                            color: '#3B82F6'
+                            details: 'Completed comprehensive curriculum covering JavaScript fundamentals, algorithms, and data structures',
+                            color: '#0A0A0A'
                         },
                         {
                             title: 'Adult and Pediatric First Aid/CPR/AED',
                             institution: 'American Red Cross',
                             link: 'https://www.redcross.org',
                             year: '2024',
-                            details: 'Certified in Adult and Pediatric First Aid, CPR, and AED through American Red Cross.',
-                            color: '#EF4444'
+                            details: 'Certified in Adult and Pediatric First Aid, CPR, and AED through American Red Cross',
+                            color: '#ED1C24'
                         },
                         {
                             title: 'Youth Mental Health First Aid',
                             institution: 'Mental Health First Aid Team',
                             link: 'https://www.mentalhealthfirstaid.org',
                             year: '2023',
-                            color: '#10B981'
+                            details: 'Trained to assist adolescents experiencing mental health challenges or crises',
+                            color: '#0072C6'
                         },
                         {
                             title: 'Responsive Web Design',
                             institution: 'freeCodeCamp',
-                            link: 'https://www.freecodecamp.org',
+                            link: 'https://www.freecodecamp.org/ne0crank',
                             year: '2021',
-                            color: '#3B82F6'
+                            details: 'Learned to build responsive websites using HTML5, CSS3, and modern design principles',
+                            color: '#0A0A0A'
                         },
                         {
                             title: 'AWS Certified Cloud Practitioner',
                             institution: 'Amazon Web Services',
                             link: 'https://aws.amazon.com',
                             year: '2021',
+                            details: 'Validated understanding of AWS Cloud concepts, services, security, architecture, pricing, and support',
                             color: '#FF9900'
                         },
                         {
@@ -1251,35 +526,32 @@
                             institution: 'ScrumStudy.com',
                             link: 'https://www.scrumstudy.com',
                             year: '2020',
-                            color: '#0EA5E9'
+                            details: 'Fundamental knowledge of Scrum framework, roles, events, and artifacts for Agile project management',
+                            color: '#0052CC'
                         },
                         {
                             title: 'IPv6 Enthusiast Certification',
                             institution: 'Hurricane Electric',
-                            link: 'https://he.net',
+                            link: 'https://ipv6.he.net/certification/create_badge.php?pass_name=kentschaeffer&badge=2',
                             year: '2025',
-                            color: '#3B82F6'
-                        },
-                        {
-                            title: 'IPv6 Explorer Certification',
-                            institution: 'Hurricane Electric',
-                            link: 'https://he.net',
-                            year: '2016',
-                            color: '#3B82F6'
+                            details: 'Demonstrated knowledge of IPv6 addressing, subnetting, and deployment strategies',
+                            color: '#0099CC'
                         },
                         {
                             title: 'Network+ Certification',
                             institution: 'CompTIA',
                             link: 'https://www.comptia.org',
                             year: '2005',
-                            color: '#E74C3C'
+                            details: 'Validated foundational networking knowledge including protocols, infrastructure, and network security',
+                            color: '#FF6600'
                         },
                         {
                             title: 'Certified NetWare Administrator (3.x)',
                             institution: 'Novell',
                             link: 'https://www.novell.com',
                             year: '1994',
-                            color: '#EF4444'
+                            details: 'Certified in Novell NetWare 3.x administration and network management',
+                            color: '#006699'
                         }
                     ],
                     projects: [
@@ -1403,7 +675,24 @@
             beforeUnmount() {
                 window.removeEventListener('scroll', this.handleScroll);
             },
+            computed: {
+                sortedEducationItems() {
+                    return this.sortItemsBy(this.educationItems, 'year', 'desc');
+                },
+                sortedPortfolioItems() {
+                    return this.sortItemsBy(this.portfolioItems, 'id', 'asc');
+                }
+            },
             methods: {
+                sortItemsBy(array, field, direction = 'asc') {
+                    return [...array].sort((a, b) => {
+                        const aValue = a[field] ? String(a[field]).substring(0, 4).toLowerCase() : '';
+                        const bValue = b[field] ? String(b[field]).substring(0, 4).toLowerCase() : '';
+                        const comparison = aValue.localeCompare(bValue);
+                        return direction === 'asc' ? comparison : -comparison;
+
+                    });
+                },
                 handleScroll() {
                     this.isScrolled = window.scrollY > 50;
                     this.showHomeButton = window.scrollY > window.innerHeight;
@@ -1513,6 +802,7 @@
                     this.currentGallery = {
                         title: item.title,
                         details: item.details,
+                        links: item.links,
                         images: item.images,
                         imageLabels: item.imageLabels
                     };

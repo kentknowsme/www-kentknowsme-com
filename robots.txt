@@ -1,0 +1,29 @@
+# Robots.txt file - Blocking all web crawlers and data collection
+
+User-agent: *
+Disallow: /
+
+# Explanation of directives:
+# User-agent: * means this rule applies to ALL web crawlers
+# Disallow: / means NO directories or pages can be crawled or indexed
+
+# Additional security recommendations
+Crawl-delay: 10
+Host: example.com
+Sitemap: 
+
+# Optional: Specific bot blocks (for extra precaution)
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
